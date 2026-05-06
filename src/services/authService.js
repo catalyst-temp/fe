@@ -21,7 +21,11 @@ export function useAuth() {
   }
 
   function login() {
-    window.location.href = getApiUrl("/api/auth/google");
+    try {
+      window.location.href = getApiUrl("/api/auth/google");
+    } catch (requestError) {
+      setError(requestError.message);
+    }
   }
 
   async function logout() {
