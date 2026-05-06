@@ -29,29 +29,32 @@ npm install
 npm run dev
 ```
 
-Set the API URL in `.env.local`:
+By default, the frontend calls the API through its own `/api` path. Vite proxies
+that to the local backend during development. If your backend is not running on
+port `4000`, set this in `.env.local`:
 
 ```text
-VITE_API_BASE_URL=http://localhost:3000
+VITE_API_PROXY_TARGET=http://localhost:4000
 ```
 
 ## Deploy to Netlify
 
-Netlify builds Vite environment variables into the frontend bundle, so add this in
-the frontend Netlify site's environment variables before deploying:
+The frontend Netlify site proxies `/api/*` to the backend in `netlify.toml`.
+This keeps the session cookie first-party in Safari and other stricter browsers.
+If the backend Netlify URL changes, update `catalyst-fe/netlify.toml`.
+
+Production builds use same-origin `/api` calls. This avoids browser-specific
+third-party cookie blocking even if an old `VITE_API_BASE_URL` value still
+exists in Netlify:
 
 ```text
-VITE_API_BASE_URL=https://catalyst-api.netlify.app
+VITE_API_BASE_URL
 ```
-
-The value must be the backend origin only, without `/api` at the end. After
-changing this variable in Netlify, trigger a new frontend deploy because Vite
-bakes this value into the built JavaScript bundle.
 
 The Google login button starts OAuth at:
 
 ```text
-https://catalyst-api.netlify.app/api/auth/google
+https://catalyst-temp.netlify.app/api/auth/google
 ```
 
 It should not link directly to `/api/auth/google/callback`; Google redirects to
