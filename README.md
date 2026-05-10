@@ -29,14 +29,6 @@ npm install
 npm run dev
 ```
 
-By default, the frontend calls the API through its own `/api` path. Vite proxies
-that to the local backend during development. If your backend is not running on
-port `4000`, set this in `.env.local`:
-
-```text
-VITE_API_PROXY_TARGET=http://localhost:4000
-```
-
 ## Deploy to Netlify
 
 The frontend Netlify site proxies `/api/*` to the backend in `netlify.toml`.

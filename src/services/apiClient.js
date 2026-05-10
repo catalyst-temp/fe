@@ -1,7 +1,9 @@
-const configuredApiBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? "")
+const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? "")
   .trim()
   .replace(/\/+$/, "");
-const apiBaseUrl = import.meta.env.PROD ? "" : configuredApiBaseUrl;
+
+console.log(`[API Client] Env: ${import.meta.env.VITE_APP_ENV}, Base URL: ${apiBaseUrl}`);
+
 
 export async function apiRequest(path, options = {}) {
   const response = await fetch(`${apiBaseUrl}${path}`, {

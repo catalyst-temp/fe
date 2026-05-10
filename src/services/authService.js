@@ -1,3 +1,4 @@
+// src/services/authService.js
 import { useEffect, useState } from "react";
 import { apiRequest, getApiUrl } from "./apiClient.js";
 
@@ -37,5 +38,13 @@ export function useAuth() {
     refreshUser();
   }, []);
 
-  return { user, loading, error, isAuthenticated: Boolean(user), login, logout, refreshUser };
+  return {
+    user,
+    loading,
+    error,
+    isAuthenticated: Boolean(user),
+    login,
+    logout,
+    refreshUser,
+  };
 }
